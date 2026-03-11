@@ -56,7 +56,7 @@ My work sits at the intersection of **quantitative finance, machine learning, an
 
 ---
 
-# 📂 Featured Projects
+# Featured Projects
 
 ## 1️⃣ AI Trading Agent: High-Fidelity Market Simulation & RL Framework
 
