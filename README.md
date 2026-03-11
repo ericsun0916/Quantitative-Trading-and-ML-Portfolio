@@ -8,7 +8,7 @@ My work sits at the intersection of **quantitative finance, machine learning, an
 
 ---
 
-# 🧠 Core Expertise
+# Core Expertise
 
 - **Algorithmic Trading System Design**
 - **Financial Machine Learning**
@@ -19,7 +19,7 @@ My work sits at the intersection of **quantitative finance, machine learning, an
 
 ---
 
-# 🛠️ Tech Stack
+# Tech Stack
 
 ### Programming Languages
 - **Python**
@@ -133,7 +133,7 @@ The project addresses the severe **class imbalance problem** commonly found in f
 
 ---
 
-# 🚀 Engineering Principles
+# Engineering Principles
 
 Across these projects, I focus on:
 
@@ -146,6 +146,6 @@ The goal is to build **quantitative systems that are not only predictive, but al
 
 ---
 
-# 📬 Contact
+# Contact
 
 If you're interested in **quantitative research, trading systems, or financial machine learning collaboration**, feel free to reach out.
