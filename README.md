@@ -1,4 +1,4 @@
-# 📈 Quantitative Trading & Machine Learning Portfolio
+# Quantitative Trading & Machine Learning Portfolio
 
 Welcome to my portfolio.
 
