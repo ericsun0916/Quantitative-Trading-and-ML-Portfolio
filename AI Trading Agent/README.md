@@ -321,7 +321,7 @@ To robustly handle vast amounts of historical data, the pipeline features a grac
 ```rust
 // src/data_loader.rs
 if t_end > t_start {
-    // 🚀 情況 A：具備高擬真 Tick 數據，使用真實 Order Flow 精確還原
+    // 情況 A：具備高擬真 Tick 數據，使用真實 Order Flow 精確還原
     let bar = FootprintBar::from_ticks(
         st_time, k_open[i], k_high[i], k_low[i], k_close[i],
         &t_px[t_start..t_end], &t_qty[t_start..t_end], &t_bm[t_start..t_end],
@@ -329,7 +329,7 @@ if t_end > t_start {
     );
     target_bars.push(bar);
 } else {
-    // 🛡️ 情況 B：無 Tick 數據 (例如歷史區間)，啟動 OHLCV 均勻分配降級算法
+    // 情況 B：無 Tick 數據 (例如歷史區間)，啟動 OHLCV 均勻分配降級算法
     if k_vol[i] > 0.0 {
         let bar = FootprintBar::from_ohlcv(
             st_time, k_open[i], k_high[i], k_low[i], k_close[i],
