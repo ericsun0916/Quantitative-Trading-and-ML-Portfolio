@@ -175,7 +175,7 @@ This combination explains why the strategy can look powerful on cumulative retur
 
 ## Figure 1. USD/JPY Spot, Trade Signals, and Cumulative Net P&L
 
-![USDJPY Signals and PnL](./usdjpy_signals.png)
+![USDJPY Signals and PnL](./usdjpy-signals.png)
 
 **What this figure shows:**  
 The top panel overlays the USD/JPY spot path with strategy trade signals, illustrating when long-volatility entries and exits were triggered across different market conditions.  
@@ -194,7 +194,7 @@ It is also the most accessible chart for non-technical readers, since it visuall
 
 ## Figure 2. Portfolio Greeks Exposure
 
-![USDJPY Greeks](./usdjpy_risk.png)
+![USDJPY Greeks](./usdjpy-risk.png)
 
 **What this figure shows:**  
 This figure visualizes the strategy’s average per-trade exposure to the three most important option sensitivities: **Gamma**, **Theta**, and **Vega**.  
