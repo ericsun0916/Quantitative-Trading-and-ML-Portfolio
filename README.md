@@ -1,10 +1,10 @@
-# Quantitative Trading & Machine Learning Portfolio
+# Trading & Quantitative Research Portfolio
 
 Welcome to my portfolio.
 
-I focus on building **data-driven trading systems**, **financial machine learning models**, and **high-performance backend architectures** for quantitative research and production environments.
+I focus on trading, quantitative research, and market modeling, with particular interests in derivatives, volatility, market structure, systematic strategies, and execution.
 
-My work sits at the intersection of **quantitative finance, machine learning, and system engineering**, combining rigorous data science experimentation with scalable infrastructure.
+My projects combine financial modeling, empirical research, and programming to study how markets are priced, how trading signals behave, and how strategies perform under realistic risk and execution constraints.
 
 ---
 
