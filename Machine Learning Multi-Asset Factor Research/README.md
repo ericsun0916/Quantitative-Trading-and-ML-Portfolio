@@ -1,55 +1,195 @@
-# 🛡️ Multi-Market Defensive Alpha: Machine Learning Factor Research
+# Multi-Market Factor Research
+### Machine Learning, Cross-Asset Signals, and Downside-Aware Strategy Analysis
 
-**👉 [Click here to read the full Research Paper (PDF)](./Multi_Asset_Factor_Research.pdf)**
-
-## 📌 Executive Summary
-
-This project develops a predictive machine learning trading framework spanning more than 30 assets across US equities, cryptocurrencies, and ETFs over the 2020–2025 period.[file:1] Rather than following classic trend-following paradigms, the research is centered on building a robust **defensive alpha** model that can systematically extract return while controlling downside risk.[file:1]
-
-By designing proprietary factors and applying tree-based ensemble models, the final system behaves as a defensive contrarian: it generates returns by tilting toward low‑beta assets and selectively buying deep, volatility‑adjusted drawdowns, while preserving capital through major market dislocations.[file:1]
+**👉 [Read the full research paper (PDF)](./Multi_Asset_Factor_Research.pdf)**
 
 ---
 
-## 💡 Key Highlights & Methodology
+## Executive Summary
 
-### 1. Custom Factor Engineering
+This project studies whether a set of market features can provide useful predictive information across more than **30 assets** spanning US equities, ETFs, and cryptocurrencies over the **2020–2025** period.
 
-Standard off‑the‑shelf technical indicators such as RSI and MACD tend to be lagging and often fail to capture cross‑asset risk‑adjusted opportunities.[file:1] To target genuine alpha in a multi‑asset setting, this research introduces two structurally motivated custom factors grounded in financial intuition:[file:1]
+The research is designed around a **defensive alpha** objective: rather than maximizing raw return alone, the framework evaluates whether systematic signals can improve downside characteristics while still capturing meaningful upside.
 
-- **VARM (Volatility‑Adjusted Relative Momentum)**  
-  Identifies assets that are outperforming the benchmark (SPY) on a relative basis while maintaining lower volatility, penalizing high‑risk, unstable rallies.[file:1]
+The analysis combines:
 
-- **PVD (Price‑Volume Divergence)**  
-  Quantifies the rolling correlation between price changes and volume to detect divergence patterns (for example, rising prices on declining volume) that often precede reversals.[file:1]
+- custom factor engineering,
+- tree-based machine-learning models,
+- model interpretation,
+- and strategy backtesting.
 
-### 2. Model Selection: Bagging over Boosting
+The resulting model tends to favor **lower-beta assets** and selected **volatility-adjusted drawdowns**, producing a more defensive allocation profile than a high-beta buy-and-hold benchmark.
 
-Daily financial time series are extremely noisy, making them prone to overfitting when using overly complex models such as XGBoost.[file:1] The study benchmarks Decision Tree, Random Forest (bagging), and XGBoost (boosting) classifiers on a directional 5‑day return prediction task.[file:1]
-
-The **Random Forest** model achieves the strongest out‑of‑sample performance with an accuracy of 54.72% and the highest AUC, empirically confirming that variance reduction via bagging is more effective than bias reduction via boosting in this market regime.[file:1]
+The objective is not to claim a universally persistent trading edge from a single sample. The project is instead used to study how market features, model choice, and downside-aware portfolio construction interact in a noisy multi-asset setting.
 
 ---
 
-## 📊 Core Findings & Visualizations
+## Research Questions
 
-### 🔍 SHAP Factor Analysis: Decoding the Alpha
+The project focuses on three questions:
 
-The research employs SHAP (SHapley Additive exPlanations) to interpret the Random Forest model and understand how each feature contributes to predictions.[file:1]
+1. Can structurally motivated market features improve short-horizon directional prediction across different asset classes?
+2. Do simpler tree-based ensemble methods behave more robustly than higher-complexity boosting models in noisy financial data?
+3. Can the resulting signals produce a more defensive return profile when translated into a trading strategy?
 
-- **Low Volatility Anomaly**  
-  The 60‑day beta factor (`Beta_60`) emerges as the single most influential feature, with lower beta values strongly associated with higher probabilities of future price increases, indicating a systematic preference for defensive, low‑beta assets.[file:1]
+---
 
-- **Mean Reversion via VARM**  
-  The custom `VARM` factor ranks among the top features in importance, and its SHAP dependence profile shows that extremely low VARM values (highly oversold relative to volatility) correspond to positive contributions to the “up” prediction.[file:1] The model therefore uses VARM primarily as a **mean‑reversion** signal, allocating to fundamentally strong assets when they become irrationally discounted.[file:1]
+# Methodology
+
+## 1. Custom Factor Engineering
+
+Rather than relying only on standard technical indicators, the study develops features intended to capture economically interpretable market behavior.
+
+Two custom factors are central to the analysis:
+
+### VARM — Volatility-Adjusted Relative Momentum
+
+VARM measures relative performance versus a benchmark while adjusting for volatility.
+
+The purpose is to distinguish between:
+
+- relatively strong but unstable price moves,
+- and stronger performance achieved with lower volatility.
+
+In the model, very low VARM values also become informative because they can identify assets experiencing unusually deep volatility-adjusted drawdowns.
+
+---
+
+### PVD — Price-Volume Divergence
+
+PVD measures the rolling relationship between price changes and trading volume.
+
+The factor is intended to capture situations where price and volume behavior diverge, such as:
+
+- rising prices with weakening volume,
+- or falling prices with improving participation.
+
+These relationships are treated as candidate signals rather than assumed trading rules, and their usefulness is evaluated empirically within the model.
+
+---
+
+## 2. Model Comparison
+
+The study compares:
+
+- Decision Tree
+- Random Forest
+- XGBoost
+
+on a **5-day directional return classification task**.
+
+Daily financial data are noisy and prone to overfitting, so the comparison is intended to evaluate whether different ensemble structures generalize differently out of sample.
+
+In this sample, **Random Forest produced the strongest out-of-sample classification results**, with:
+
+- Accuracy: **54.72%**
+- Highest AUC among the tested models
+
+This result suggests that, for this dataset and feature set, variance reduction through bagging may have been more robust than the tested boosting specification.
+
+It should not be interpreted as a general conclusion that Random Forest is superior to XGBoost across financial prediction problems.
+
+---
+
+# Model Interpretation
+
+## SHAP Factor Analysis
+
+SHAP (SHapley Additive exPlanations) is used to examine how individual features contribute to model predictions.
+
+### Low-Beta Preference
+
+The 60-day beta feature (`Beta_60`) emerges as one of the most influential variables in the fitted Random Forest model.
+
+Within this sample, lower beta values are generally associated with higher predicted probabilities of positive future returns.
+
+This is consistent with the defensive behavior observed in the strategy backtest, although the analysis does not establish that the low-volatility anomaly is the sole causal explanation.
+
+---
+
+### Mean-Reversion Behavior in VARM
+
+VARM also ranks among the more influential features.
+
+The SHAP dependence pattern shows that extremely low VARM values tend to contribute positively to the model's "up" prediction.
+
+This suggests that the model is using part of the factor as a **mean-reversion signal**, particularly when an asset experiences an unusually deep volatility-adjusted drawdown.
 
 ![SHAP Summary Plot](./images/shap_summary.png)
 
-### 📈 Strategy Backtesting: Capital Preservation Profile
+---
 
-A long‑only strategy is constructed by taking positions only when the model’s predicted “up” probability exceeds a confidence threshold of 0.51, and it is benchmarked against an equal‑weight buy‑and‑hold market portfolio.[file:1]
+# Strategy Backtest
 
-While the AI strategy delivers a lower terminal return than the high‑beta bull market benchmark, it exhibits **materially better capital preservation**, avoiding speculative blow‑off phases and maintaining far smaller drawdowns during sharp corrections, such as those observed in mid‑2024 and 2025.[file:1]
+A long-only strategy is constructed by taking positions when the model's predicted probability of a positive 5-day return exceeds a threshold of **0.51**.
+
+The strategy is compared with an equal-weight buy-and-hold portfolio across the same research universe.
+
+## Observed Behavior
+
+The model strategy produced a **lower terminal return** than the higher-beta benchmark over the test period.
+
+However, it also showed:
+
+- smaller drawdowns during several correction periods,
+- lower participation in speculative upside phases,
+- and a more defensive allocation profile.
+
+This trade-off is consistent with the project's original objective: studying whether predictive signals can be used to improve capital preservation rather than simply maximize total return.
 
 ![Optimized Backtest: AI vs Market](./images/backtest_result.png)
 
+---
 
+# Interpretation
+
+The project suggests three main observations within the tested sample:
+
+1. **Model complexity did not automatically improve predictive performance.**  
+   The tested Random Forest specification generalized better than the tested XGBoost specification.
+
+2. **The strongest model signals were economically interpretable.**  
+   Beta and volatility-adjusted relative momentum contributed meaningfully to predictions.
+
+3. **The strategy's main advantage was defensive behavior rather than maximum return.**  
+   It gave up some upside participation in exchange for smaller drawdowns during selected market corrections.
+
+These findings are sample-dependent and should be treated as research observations rather than evidence of a persistent production-ready alpha source.
+
+---
+
+# Limitations
+
+Several limitations remain important:
+
+- The asset universe is limited and does not represent the full investable market.
+- The 2020–2025 sample contains unusual market regimes, including pandemic-era dislocations and strong risk-on periods.
+- Classification accuracy alone does not establish economic profitability.
+- Hyperparameter selection and feature experimentation can introduce model-selection bias.
+- Transaction costs, turnover, liquidity, and position sizing require further robustness analysis.
+- The current study does not fully test factor stability across independent subperiods and alternative universes.
+- Strong backtest behavior does not imply live-trading performance.
+
+Future work should focus on:
+
+- walk-forward validation,
+- stricter out-of-sample testing,
+- factor decay analysis,
+- transaction-cost sensitivity,
+- regime stability,
+- and comparison with simpler rule-based baselines.
+
+---
+
+# Research Scope
+
+This project is intended as a **quantitative research exercise** in factor design, model comparison, interpretability, and downside-aware strategy construction.
+
+The goal is to understand:
+
+- which features the model actually uses,
+- whether those features have plausible financial intuition,
+- how model choice changes out-of-sample behavior,
+- and how predictive signals translate into portfolio-level risk characteristics.
+
+The project should not be interpreted as a claim of a fully validated live-trading strategy.
